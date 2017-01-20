@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-  before_action :set_like, only: [:show, :edit, :update, :destroy]
+  before_action :set_likes.new(user: current_user), only: [:show, :edit, :update, :destroy]
 
   # GET /likes
   # GET /likes.json
@@ -24,18 +24,30 @@ class LikesController < ApplicationController
   # POST /likes
   # POST /likes.json
   def create
-    @like = Like.new(like_params)
+
+    @like = @article.likes.new(user: current_user)
 
     respond_to do |format|
       if @like.save
-        format.html { redirect_to @like, notice: 'Like was successfully created.' }
-        format.json { render :show, status: :created, location: @like }
+        format.js { }
       else
-        format.html { render :new }
-        format.json { render json: @like.errors, status: :unprocessable_entity }
+        format.js { }
       end
     end
   end
+
+  #   @like = Like.new(like_params)
+  #
+  #   respond_to do |format|
+  #     if @like.save
+  #       format.html { redirect_to @like, notice: 'Like was successfully created.' }
+  #       format.json { render :show, status: :created, location: @like }
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @like.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /likes/1
   # PATCH/PUT /likes/1.json
@@ -66,9 +78,11 @@ class LikesController < ApplicationController
     def set_like
       @like = Like.find(params[:id])
     end
-
+  def set_post
+    @article = Article.find(params[:article_id])
+  end
     # Never trust parameters from the scary internet, only allow the white list through.
     def like_params
-      params.require(:like).permit(:post_id, :user_id)
+      params.require(:like).permit(:article_id, :user_id)
     end
 end

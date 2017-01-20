@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :likes
 resources :articles do
  resources :comments
+  resources :likes
 #  get 'welcome/index'
 end
 
