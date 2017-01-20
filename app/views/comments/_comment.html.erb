@@ -1,12 +1,11 @@
-<p>
-  <strong>Commenter:</strong>
+<div>
+  <span>Commenter:</span>
   <%= comment.commenter %>
-</p>
- 
-<p>
-  <strong>Comment:</strong>
+</div>
+<div>
+  <span>Comment:</span>
   <%= comment.body %>
-</p>
+</div>
 <p>
   <%= link_to 'Destroy Comment', [comment.article, comment],
                method: :delete,
